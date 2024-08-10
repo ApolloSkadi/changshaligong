@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目</title>
+    <!-- 引入 ECharts 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 使用AJAX加载API返回的JSON数据
+        fetch('https://geo.datav.aliyun.com/areas_v3/bound/433100_full.json')
+            .then(response => response.json())
+            .then(data => {
+                // 指定图表的配置项和数据
+                console.log(data);
+                var option = {
+                    title: {
+                        text: 'GeoJSON 地图示例'
+                    },
+                    tooltip: {},
+                    visualMap: {
+                        min: 0,
+                        max: 1000,
+                        left: 'left',
+                        top: 'bottom',
+                        text: ['高', '低'],
+                        calculable: true
+                    },
+                    series: [
+                        {
+                            name: '数据名称',
+                            type: 'map',
+                            map: 'customMap', // 自定义地图名称
+                            roam: true,
+                            data: [],
+                            geoJSON: data // 使用加载的GeoJSON数据
+                        }
+                    ]
+                };
+
+                // 注册自定义地图
+                echarts.registerMap('customMap', data);
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
