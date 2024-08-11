@@ -7,6 +7,7 @@
     <!-- 引入 ECharts 文件 -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
     <script src="./js/vue.js"></script>
+    <script src="./js/map.js"></script>
     <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
@@ -236,46 +237,42 @@
             getMap(){
                 // 基于准备好的dom，初始化echarts实例
                 var myChart = echarts.init(document.getElementById('mapEcharts'));
-                // 使用AJAX加载API返回的JSON数据
-                fetch('https://geo.datav.aliyun.com/areas_v3/bound/433100_full.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        // 指定图表的配置项和数据
-                        console.log(data);
-                        var option = {
-                            title: {
-                            },
-                            tooltip: {
-                                trigger: 'item',
-                                formatter: function(params) {
-                                    // console.log('echarts选中了：',params);
-                                    return params.name;
-                                }
-                            },
-                            series: [
-                                {
-                                    name: '数据名称',
-                                    type: 'map',
-                                    map: 'customMap', // 自定义地图名称
-                                    roam: true,
-                                    data: [],
-                                    geoJSON: data // 使用加载的GeoJSON数据
-                                }
-                            ]
-                        };
+                // 使用已经定义好的数据
+                var data = geoJSONData;
+                // 指定图表的配置项和数据
+                console.log(data);
+                var option = {
+                    title: {
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: function(params) {
+                            // console.log('echarts选中了：',params);
+                            return params.name;
+                        }
+                    },
+                    series: [
+                        {
+                            name: '数据名称',
+                            type: 'map',
+                            map: 'customMap', // 自定义地图名称
+                            roam: true,
+                            data: [],
+                            geoJSON: data // 使用加载的GeoJSON数据
+                        }
+                    ]
+                };
 
-                        // 注册自定义地图
-                        echarts.registerMap('customMap', data);
+                // 注册自定义地图
+                echarts.registerMap('customMap', data);
 
-                        // 使用刚指定的配置项和数据显示图表。
-                        myChart.setOption(option);
-                        myChart.off("click");
-                        myChart.on("click", (params) => {
-                            console.log(params);
-                            this.updateNews(params.name);
-                        });
-                    })
-                    .catch(error => console.error('Error:', error));
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                myChart.off("click");
+                myChart.on("click", (params) => {
+                    console.log(params);
+                    this.updateNews(params.name);
+                });
             }
         }
     })

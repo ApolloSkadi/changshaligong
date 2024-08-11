@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目</title>
+     <!-- 引入 ECharts 文件 -->
+     <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+     <script src="./js/vue.js"></script>
+     <script src="./js/map.js"></script>
+     <link rel="stylesheet" href="./css/index-new.css">
+</head>
+<body>
+    <div id="main" class="main-content">
+        <div id="mapEcharts" style="width: 400px;height:600px;"></div>
+        <div class="main-news">
+            <!-- 根据地图选择展示详细内容 -->
+            <div v-if="isChooseNews" class="news-content">
+                <div class="news-title">
+                    {{chooseNews.title}}
+                </div>
+                <div class="news-content-text">
+                    {{chooseNews.content}}
+                </div>
+            </div>
+            <div v-else class="news-none">
+                <p>请点击左侧选择板块</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:'#main',
+        data:{
+            mapNewsList:[
+                {
+                    key:'吉首市',
+                    title:'吉首市网络安全“护卫队”志愿服务实践项目',
+                    content:'吉首市网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院',
+                },
+                {
+                    key:'泸溪县',
+                    title:'泸溪县网络安全“护卫队”志愿服务实践项目',
+                    content:'泸溪县网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院',
+                },
+            ],
+            chooseNews:{},
+            isChooseNews:false,
+        },
+        mounted() {
+            this.getMap();
+        },
+        methods:{
+            updateNews(selectedArea) {
+                console.log('选中了：',selectedArea);
+                const news = this.mapNewsList.find(item => item.key === selectedArea);
+                if (news) {
+                    this.chooseNews = news;
+                    this.isChooseNews = true;
+                } else {
+                    this.chooseNews = {};
+                    this.isChooseNews = false;
+                }
+            },
+            getMap(){
+                const setEchartWH = {
+                    width: 400,
+                    height: 600
+                }
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(
+                    document.getElementById('mapEcharts'),
+                    null,
+                    setEchartWH
+                );
+                // 使用已经定义好的数据
+                var data = geoJSONData;
+                // 指定图表的配置项和数据
+                console.log(data);
+                var option = {
+                    title: {
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: function(params) {
+                            // console.log('echarts选中了：',params);
+                            return params.name;
+                        }
+                    },
+                    grid: {
+                        left: '5%',
+                        right: '5%',
+                        top: '5%',
+                        bottom: '5%',
+                        containLabel: true
+                    },
+                    visualMap:{
+                        show: false,
+                        x: 'left',
+                        y: 'bottom',
+                        splitList:[
+                            { start: 0, end: 50000, color: '#d9534f' },
+                            { start: 50000, end: 100000, color: '#f6efa6' },
+                            { start: 100000, end: 200000, color: '#f1c40f' },
+                            { start: 200000, end: 300000, color: '#e67e22' },
+                            { start: 300000, end: 400000, color: '#e74c3c' },
+                        ]
+                    },
+                    series: [
+                        {
+                            name: '数据名称',
+                            type: 'map',
+                            map: 'customMap', // 自定义地图名称
+                            roam: true,
+                            data: [
+                            { name: '吉首市', value: 100, itemStyle: { color: '#2ecc71' } },
+                            { name: '泸溪县', value: 100, itemStyle: { color: '#3498db' } },
+                            { name: '凤凰县', value: 100, itemStyle: { color: '#9b59b6' } },
+                            { name: '花垣县', value: 100, itemStyle: { color: '#34495e' } },
+                            { name: '保靖县', value: 100, itemStyle: { color: '#1abc9c' } },
+                            { name: '古丈县', value: 100, itemStyle: { color: '#2980b9' } },
+                            { name: '永顺县', value: 100, itemStyle: { color: '#95a5a6' } },
+                            { name: '龙山县', value: 100, itemStyle: { color: '#f1c40f' } },
+                            ],
+                            label:{
+                                show: true,
+                            },
+                            geoJSON: data // 使用加载的GeoJSON数据
+                        }
+                    ]
+                };
+
+                // 注册自定义地图
+                echarts.registerMap('customMap', data);
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                myChart.off("click");
+                myChart.on("click", (params) => {
+                    console.log(params);
+                    this.updateNews(params.name);
+                });
+            }
+        }
+    })
+</script>
+</html>
