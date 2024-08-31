@@ -1,280 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目</title>
-    <!-- 引入 ECharts 文件 -->
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
-    <script src="./js/vue.js"></script>
-    <script src="./js/map.js"></script>
-    <link rel="stylesheet" href="./css/index.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./css/index-new.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <script src="./js/vue.js"></script>
+  <script src="./js/map.js"></script>
+  <script src="http://cdn.staticfile.org/jquery/1.8.3/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+  <title>长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目</title>
 </head>
 <body>
-    <div class="body">
-        <div id="header">
-            <div class="header-content">
-                <div class="header-top">
-                    
-                </div>
-                <div class="header-nav-bg">
-                    <div class="header-nav">
-                        <div v-for="(item,index) in navBars" :key="index" class="nav-item" @click="handleClick(index)" 
-                            :class="{'nav-item-active':selectIndex===index}" 
-                            @mouseenter="showSubNav(index)" 
-                            @mouseleave="hideSubNav(index)">
-                            <a :href="item.url"
-                                :class="{'nav-item-active-a':selectIndex===index}">
-                                {{item.name}}
-                            </a>
-                            <div v-if="item.children" class="sub-nav" :ref="'subNav' + index">
-                                <div v-for="(child, childIndex) in item.children" :key="childIndex" class="sub-nav-item">
-                                    <a :href="child.url">{{child.name}}</a>
+    <header>
+      <a href="#" class="brand">
+          <img src="./images/logo.png" alt="">
+      </a>
+      <div class="menu-btn"></div>
+      <div class="navigation">
+        <div class="navigation-items">
+          <a href="#">首页</a>
+          <a href="./pages/publicizeMaterial.html" >宣传材料</a>
+          <a href="./pages/practiceDiary.html" >实践日记</a>
+          <a href="./pages/publicizeResults.html">宣传成果</a>
+          <a href="./pages/researchReport.html">调研报告</a>
+        </div>
+      </div>
+    </header>
+    
+    <section class="home">
+      <video id="element" class="video-slide active" src="home.mp4" autoplay muted loop></video>
+      <div class="content active">
+          <h1>长沙理工大学<br><span>计通学院</span></h1>
+          <p>赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目</p>
+      </div>
+      <div id="main" class="main-content">
+        <div id="mapEcharts" style="width: 600px;height:750px;"></div>
+      </div>
+    </section>
+<!-- 背景图随鼠标移动 -->
+<script>
+//   const multiple = 50;
+//   const mouseOverContainer = document.getElementsByTagName("body")[0];
+//   const element = document.getElementById("element");
+
+//   function transformElement(x, y) {
+//       let box = element.getBoundingClientRect();
+//       const calcX = -(y - box.y - box.height / 2) / multiple;
+//       const calcY = (x - box.x - box.width / 2) / multiple;
+//       const percentage = parseInt((x - box.x) / box.width * 1000) / 10;
+      
+//       element.style.transform = "rotateX(" + calcX + "deg) " + "rotateY(" + calcY + "deg)";
+//   }
+
+//   mouseOverContainer.addEventListener("mousemove", (e) => {
+//       window.requestAnimationFrame(function () {
+//           transformElement(e.clientX, e.clientY);
+//       });
+//   });
+
+//   mouseOverContainer.addEventListener("mouseleave", (e) => {
+//       window.requestAnimationFrame(function () {
+//           element.style.transform = "rotateX(0) rotateY(0)";
+//       });
+//   });
+</script>
+<script>
+  new Vue({
+      el:'#main',
+      data:{
+          mapNewsList:[],
+          chooseNews:{},
+          isChooseNews:false,
+      },
+      mounted() {
+          this.getMap();
+      },
+      methods:{
+          getMap(){
+              const setEchartWH = {
+                  width: 600,
+                  height: 750
+              }
+              // 基于准备好的dom，初始化echarts实例
+              var myChart = echarts.init(
+                  document.getElementById('mapEcharts'),
+                  null,
+                  setEchartWH
+              );
+              // 使用已经定义好的数据
+              var data = geoJSONData;
+              // 指定图表的配置项和数据
+              console.log(data);
+              var mapDataInfo = mapDate;
+              var option = {
+                  title: {
+                  },
+                  tooltip: {
+                      trigger: 'item',
+                      formatter: function(params) {
+                        //   console.log('echarts选中了：',params);
+                        // 根据params获取当前区块的信息，并返回一个包含详细信息的字符串
+                        let data = params.data;
+                        if (!!data.content && !!data.img){
+                            let info = `
+                            <div class="msg-card">
+                                <div class="msg-header">
+                                    <img src="${data.img}" alt="" style="width: 100%;">
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        <div id="main" class="main-content">
-            <div id="mapEcharts" style="width: 400px;height:400px;"></div>
-            <div class="main-news">
-                <!-- 根据地图选择展示详细内容 -->
-                <div v-if="isChooseNews" class="news-content">
-                    <div class="news-title">
-                        {{chooseNews.title}}
-                    </div>
-                    <div class="news-content-text">
-                        {{chooseNews.content}}
-                    </div>
-                </div>
-                <div v-else class="news-none">
-                    <p>请点击左侧选择板块</p>
-                </div>
-            </div>
-        </div>
-        <div id="footer">
-            <div class="footer-content">
-                <div class="link">
-                    <span>湖南省长沙市天心区万家丽南路2段960号</span><br>
-                    <span>邮编: 410114</span><br>
-                    <span>长沙理工大学计通学院版权所有 Copyright &copy; 2024.</span>
-                </div>
-            </div>
-        </div>
-    </div>
+                                <div class="msg-content">
+                                ${data.content}
+                                </div>
+                            </div>`;
+                            return info;
+                        } else {
+                            let info = `
+                            <div class="msg-card">
+                                <div class="msg-content">
+                                ${data.name}
+                                </div>
+                            </div>`;
+                            return info;
+                        }
+                      }
+                  },
+                  grid: {
+                      left: '5%',
+                      right: '5%',
+                      top: '5%',
+                      bottom: '5%',
+                      containLabel: true
+                  },
+                  visualMap:{
+                      show: false,
+                      x: 'left',
+                      y: 'bottom',
+                      splitList:[]
+                  },
+                  series: [
+                      {
+                          name: '数据名称',
+                          type: 'map',
+                          map: 'customMap', // 自定义地图名称
+                          roam: true,
+                          data: mapDataInfo,
+                          label:{
+                              show: true,
+                          },
+                          geoJSON: data // 使用加载的GeoJSON数据
+                      }
+                  ]
+              };
+
+              // 注册自定义地图
+              echarts.registerMap('customMap', data);
+
+              // 使用刚指定的配置项和数据显示图表。
+              myChart.setOption(option);
+              myChart.off("click");
+              myChart.on("click", (params) => {
+                  console.log('echarts点击了：',params);
+                  // 获取选中板块的跳转地址
+                  let url = params.data.jumpUrl;
+                  let townId = params.data.townId;// 跳转到选中板块的页面
+                  // 判断是否有跳转地址
+                  if (!!url && !!townId){
+                      url += `?townId=${townId}`;
+                      window.location.href = url;
+                  }
+              });
+          }
+      }
+  })
+</script>
+
 </body>
-<script>
-    new Vue({
-        el:'#header',
-        data:{
-            title:'长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目',
-            navBars:[
-                {
-                    name:'实践地点',
-                    url:'#',
-                    children:[
-                        {
-                            name:'龙山县',
-                            url:'#'
-                        },
-                        {
-                           name:'惹巴拉',
-                           url:'#'
-                        },
-                        {
-                            name:'吉首市',
-                            url:'#'
-                        }
-                    ]
-                },
-                {
-                    name:'实践主题',
-                    url:'#',
-                    children:[
-                        {
-                            name:'网络安全知识',
-                            url:'#'
-                        },
-                        {
-                            name:'相关案例介绍',
-                            url:'#'
-                        }
-                    ] 
-                },
-                {
-                    name:'实践周报',
-                    url:'#',
-                    children:[
-                        {
-                            name:'测试3',
-                            url:'#'
-                        },
-                        {
-                            name:'测试3-1',
-                            url:'#'
-                        }
-                    ] 
-                },
-                {
-                    name:'实践日记',
-                    url:'#',
-                    children:[
-                        {
-                            name:'测试3',
-                            url:'#'
-                        },
-                        {
-                            name:'测试3-1',
-                            url:'#'
-                        }
-                    ] 
-                },
-                {
-                    name:'宣传成果',
-                    url:'#',
-                    children:[
-                        {   
-                            name:'测试3',
-                            url:'#'
-                        },
-                        {
-                            name:'测试3-1',
-                            url:'#'
-                        }
-                    ] 
-                },
-                {
-                    name:'调研报告',
-                    url:'#',
-                    children:[
-                        {
-                            name:'测试3',
-                            url:'#'
-                        },
-                        {
-                            name:'测试3-1',
-                            url:'#'
-                        }
-                    ] 
-                }
-            ],
-            isHovered:{},
-            selectIndex:null,
-        },
-        mounted() {
-            this.navBars.forEach((item, index) => {
-                this.$set(this.isHovered, index, false);
-            });
-        },
-        methods:{
-            handleClick(index){
-                console.log(index);
-                this.selectIndex = index;
-            },
-            showSubNav(index) {
-                const subNav = this.$refs[`subNav${index}`][0];
-                if (subNav) {
-                    subNav.style.display = 'block';
-                    subNav.style.maxHeight = `${subNav.scrollHeight}px`;
-                }
-            },
-            hideSubNav(index) {
-                const subNav = this.$refs[`subNav${index}`][0];
-                if (subNav) {
-                    subNav.style.maxHeight = `${subNav.scrollHeight}px`;
-                    setTimeout(() => {
-                        subNav.style.maxHeight = '0';
-                        subNav.style.display = 'none';
-                    }, 10); // 延迟隐藏，确保过渡效果
-                }
-            },
-        }
-    })
 
-    new Vue({
-        el:'#footer',
-        data:{
-        }
-    })
-</script>
-<script>
-    new Vue({
-        el:'#main',
-        data:{
-            mapNewsList:[
-                {
-                    key:'吉首市',
-                    title:'吉首市网络安全“护卫队”志愿服务实践项目',
-                    content:'吉首市网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院',
-                },
-                {
-                    key:'泸溪县',
-                    title:'泸溪县网络安全“护卫队”志愿服务实践项目',
-                    content:'泸溪县网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院赴湖南省少数民族区域网络安全“护卫队”志愿服务实践项目，是由长沙理工大学计通学院',
-                },
-            ],
-            chooseNews:{},
-            isChooseNews:false,
-        },
-        mounted() {
-            this.getMap();
-        },
-        methods:{
-            updateNews(selectedArea) {
-                console.log('选中了：',selectedArea);
-                const news = this.mapNewsList.find(item => item.key === selectedArea);
-                if (news) {
-                    this.chooseNews = news;
-                    this.isChooseNews = true;
-                } else {
-                    this.chooseNews = {};
-                    this.isChooseNews = false;
-                }
-            },
-            getMap(){
-                // 基于准备好的dom，初始化echarts实例
-                var myChart = echarts.init(document.getElementById('mapEcharts'));
-                // 使用已经定义好的数据
-                var data = geoJSONData;
-                // 指定图表的配置项和数据
-                console.log(data);
-                var option = {
-                    title: {
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: function(params) {
-                            // console.log('echarts选中了：',params);
-                            return params.name;
-                        }
-                    },
-                    series: [
-                        {
-                            name: '数据名称',
-                            type: 'map',
-                            map: 'customMap', // 自定义地图名称
-                            roam: true,
-                            data: [],
-                            geoJSON: data // 使用加载的GeoJSON数据
-                        }
-                    ]
-                };
 
-                // 注册自定义地图
-                echarts.registerMap('customMap', data);
-
-                // 使用刚指定的配置项和数据显示图表。
-                myChart.setOption(option);
-                myChart.off("click");
-                myChart.on("click", (params) => {
-                    console.log(params);
-                    this.updateNews(params.name);
-                });
-            }
-        }
-    })
-</script>
 </html>

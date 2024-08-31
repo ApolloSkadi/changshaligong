@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日记详情</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/showcasePage.css">
+    <script src="../js/vue.js"></script>
+    <script src="../js/diary.js"></script>
+    <script src="http://cdn.staticfile.org/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+    <div class="header-navbar">
+        <header>
+            <a href="#" class="brand">
+                <img src="../images/logo.png" alt="">
+            </a>
+            <div class="menu-btn"></div>
+            <div class="navigation">
+              <div class="navigation-items">
+                <a href="../index.html">首页</a>
+                <a href="./publicizeMaterial.html" >宣传材料</a>
+                <a href="./practiceDiary.html" >实践日记</a>
+                <a href="./publicizeResults.html">宣传成果</a>
+                <a href="./researchReport.html">调研报告</a>
+              </div>
+            </div>
+        </header>
+    </div>
+    <div id="showcase">
+        <div class="content">
+            <!-- 顶部导航栏 -->
+            <!-- 段落信息 -->
+            <div class="content-wrapper">
+                <!-- 上层图片 下层文本 -->
+                <div v-if="randomType == 1" class="text-container-tyep1">
+                    <!-- 图片 -->
+                    <div class="image-container">
+                        <img :src="currentPageDate.img" alt="描述性文本">
+                    </div>
+                    <!-- 文字 -->
+                    <div class="text-container">
+                        <h2>{{currentPageDate.title}}</h2>
+                        <p class="author-date">{{currentPageDate.author}} {{currentPageDate.date}}</p>
+                        <p>{{currentPageDate.text}}</p>
+                    </div>
+                </div>
+                <!-- 左侧图片 右侧文本 -->
+                <div v-if="randomType == 2" class="text-container-tyep2">
+                    <!-- 图片 -->
+                    <div class="image-container">
+                        <img :src="currentPageDate.img" alt="描述性文本">
+                    </div>
+                    <!-- 文字 -->
+                    <div class="text-container">
+                        <h2>{{currentPageDate.title}}</h2>
+                        <p class="author-date">{{currentPageDate.author}} {{currentPageDate.date}}</p>
+                        <p>{{currentPageDate.text}}</p>
+                    </div>
+                </div>
+                <!-- 右侧图片 左侧文本 -->
+                <div v-if="randomType == 3" class="text-container-tyep3">
+                    <!-- 图片 -->
+                    <div class="image-container">
+                        <img :src="currentPageDate.img" alt="描述性文本">
+                    </div>
+                    <!-- 文字 -->
+                    <div class="text-container">
+                        <h2>{{currentPageDate.title}}</h2>
+                        <p class="author-date">{{currentPageDate.author}} {{currentPageDate.date}}</p>
+                        <p>{{currentPageDate.text}}</p>
+                    </div>
+                </div>
+                <!-- 下侧图片 上侧文本 -->
+                <div v-if="randomType == 4" class="text-container-tyep4">
+                    <!-- 文字 -->
+                    <div class="text-container">
+                        <h2>{{currentPageDate.title}}</h2>
+                        <p class="author-date">{{currentPageDate.author}} {{currentPageDate.date}}</p>
+                        <p>{{currentPageDate.text}}</p>
+                    </div>
+                    <!-- 图片 -->
+                    <div class="image-container">
+                        <img :src="currentPageDate.img" alt="描述性文本">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#showcase',
+            data:{
+                pageDate:[],
+                currentPageDate:{},
+                randomType:1,
+            }, 
+            mounted() {
+                
+            },
+            created() {
+                let identifier = this.getQueryParam('diaryId');
+                console.log('获取的id为：', identifier);
+                // 选中 对应日记信息
+                this.currentPageDate = diaryData[identifier];
+                console.log('当前页面数据：', this.currentPageDate);
+                // 获取一个1-4的随机数
+                this.randomType = Math.floor(Math.random() * 4) + 1;
+                console.log('随机类型：', this.randomType);
+
+            },
+            methods: {
+                // url跳转
+                goToUrl(url){
+                    console.log('跳转url：', url);
+                    window.location.href = url;
+                },
+                // 获取 URL 中的查询参数
+                getQueryParam(param) {
+                    let urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get(param);
+                },
+
+            },
+        })
+    </script>
+    
+</body>
+</html>

@@ -8540,9 +8540,10 @@ const mapDate = [
     { 
         name: '吉首市', // 选块名称
         value: 100,
+        townId: 1, // 城市id 页面跳转时需要
         img: "./images/home/cslgdx.png", // hover 图片展示
         content: '吉首市是湖南省省会',  // hover 文字提示
-        jumpUrl:'', // 跳转页面地址
+        jumpUrl:'./pages/showcasePage.html', // 跳转页面地址
         itemStyle: { 
             color: '#2ecc71', // 地图选块颜色
             opacity:0.8  // 地图选块不透明度
@@ -8593,8 +8594,10 @@ const mapDate = [
     { 
         name: '龙山县', 
         value: 100, 
-        img: "",
-        content: '泸溪县是湖南省省会', 
+        townId: 2, // 城市id 页面跳转时需要
+        img: "./images/home/cslgdx.png", // hover 图片展示
+        content: '吉首市是湖南省省会',  // hover 文字提示
+        jumpUrl:'./pages/showcasePage.html', // 跳转页面地址
         itemStyle: { color: '#f1c40f', opacity:0.8 } 
     },
 ]

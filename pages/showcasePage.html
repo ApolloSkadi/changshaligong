@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/showcasePage.css">
+    <script src="../js/vue.js"></script>
+    <script src="../js/showPage.js"></script>
+    <script src="http://cdn.staticfile.org/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+    <div class="header-navbar">
+        <header>
+            <a href="#" class="brand">
+                <img src="../images/logo.png" alt="">
+            </a>
+            <div class="menu-btn"></div>
+            <div class="navigation">
+              <div class="navigation-items">
+                <a href="../index.html">首页</a>
+                <a href="./publicizeMaterial.html" >宣传材料</a>
+                <a href="./practiceDiary.html" >实践日记</a>
+                <a href="./publicizeResults.html">宣传成果</a>
+                <a href="./researchReport.html">调研报告</a>
+              </div>
+            </div>
+        </header>
+    </div>
+    <div id="showcase">
+        <div class="content">
+            <!-- 顶部导航栏 -->
+
+            <!-- 主页面 -->
+            <div class="page-tab" style="margin-top: 10px;">
+                <!-- 如果有多个页面 新增选择tab -->
+                <div v-if="pageDate.length > 1"> 
+                    <div 
+                        v-for="(item, index) in pageDate" 
+                        :key="index" 
+                        :class="['tab-item', { active: currentPageDate.title === item.title }]" 
+                        @click="changePageDate(item)">
+                        {{ item.title }}
+                    </div>
+                </div>
+            </div>
+            <!-- 段落信息 -->
+            <div class="content-wrapper" v-for="item in currentPageDate.paragraphs">
+                <!-- 上层图片 下层文本 -->
+                <div v-if="item.type == 1" class="text-container-tyep1">
+                    <!-- 图片 -->
+                    <div class="image-container">
+                        <img :src="item.img" alt="描述性文本">
+                    </div>
+                    <!-- 文字 -->
+                    <div class="text-container">
+                        <h2>{{item.title}}</h2>
+                        <p>{{item.text}}</p>
+                    </div>
+                </div>
+                <!-- 左侧图片 右侧文本 -->
+                <div v-if="item.type == 2" class="text-container-tyep2">
+                    <!-- 图片 -->
+                    <div class="image-container">
+                        <img :src="item.img" alt="描述性文本">
+                    </div>
+                    <!-- 文字 -->
+                    <div class="text-container">
+                        <h2>{{item.title}}</h2>
+                        <p>{{item.text}}</p>
+                    </div>
+                </div>
+                <!-- 右侧图片 左侧文本 -->
+                <div v-if="item.type == 3" class="text-container-tyep3">
+                    <!-- 图片 -->
+                    <div class="image-container">
+                        <img :src="item.img" alt="描述性文本">
+                    </div>
+                    <!-- 文字 -->
+                    <div class="text-container">
+                        <h2>{{item.title}}</h2>
+                        <p>{{item.text}}</p>
+                    </div>
+                </div>
+                <!-- 下侧图片 上侧文本 -->
+                <div v-if="item.type == 4" class="text-container-tyep4">
+                    <!-- 文字 -->
+                    <div class="text-container">
+                        <h2>{{item.title}}</h2>
+                        <p>{{item.text}}</p>
+                    </div>
+                    <!-- 图片 -->
+                    <div class="image-container">
+                        <img :src="item.img" alt="描述性文本">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#showcase',
+            data:{
+                pageDate:[],
+                currentPageDate:{},
+            }, 
+            mounted() {
+                
+            },
+            created() {
+                let identifier = this.getQueryParam('townId');
+                console.log('获取的id为：', identifier);
+                // 过滤对应id的数据
+                let filterData = CountyData.filter(item => item.townId == identifier);
+                console.log('过滤后的数据：', filterData);
+                if(filterData.length > 0){
+                    let title = filterData[0].title;
+                    document.title = title;
+                }
+                this.pageDate = filterData;
+                this.currentPageDate = filterData[0];
+            },
+            methods: {
+                // 获取 URL 中的查询参数
+                getQueryParam(param) {
+                    let urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get(param);
+                },
+                changePageDate(params){
+                    console.log('切换页面：', params);
+                    this.currentPageDate = params;
+                    document.title = params.title;
+                },
+                // url跳转
+                goToUrl(url){
+                    console.log('跳转url：', url);
+                    window.location.href = url;
+                },
+
+            },
+        })
+    </script>
+</body>
+</html>

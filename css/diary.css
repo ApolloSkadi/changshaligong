@@ -1,0 +1,75 @@
+@charset "UTF-8";
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+.container .diary-title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin-top: 50px;
+}
+.container .diary-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  padding: 20px;
+}
+.container .diary-container::after {
+  content: "";
+  flex: auto;
+}
+.container .diary-item {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 275px;
+  display: flex;
+  flex-direction: column;
+}
+.container .diary-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.container .diary-item-img {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+}
+.container .diary-item-img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.container .diary-item-title {
+  padding: 15px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+}
+.container .diary-item-title div:last-child {
+  font-size: 14px;
+  color: #888;
+  margin-top: 5px;
+}
+.container .diary-item-text {
+  padding: 15px;
+  font-size: 16px;
+  color: #555;
+  flex-grow: 1;
+}
+.container .diary-item-text div {
+  display: -webkit-box; /* 让子元素使用 flexbox */
+  -webkit-box-orient: vertical; /* 设置元素的方向为垂直 */
+  overflow: hidden; /* 隐藏超出容器的内容 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+  -webkit-line-clamp: 2; /* 限制显示两行文本 */
+  line-height: 1.5; /* 设置行高 */
+  max-height: 3em; /* 设置最大高度，计算方式为 line-height * 2 */
+  word-break: break-word; /* 控制单词换行 */
+}/*# sourceMappingURL=diary.css.map */

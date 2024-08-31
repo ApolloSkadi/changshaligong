@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宣传成果</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/results.css">
+    <script src="../js/vue.js"></script>
+    <script src="../js/results.js"></script>
+    <script src="http://cdn.staticfile.org/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+    <div class="header-navbar">
+        <header>
+            <a href="#" class="brand">
+                <img src="../images/logo.png" alt="">
+            </a>
+            <div class="menu-btn"></div>
+            <div class="navigation">
+              <div class="navigation-items">
+                <a href="../index.html">首页</a>
+                <a href="./publicizeMaterial.html" >宣传材料</a>
+                <a href="./practiceDiary.html" >实践日记</a>
+                <a href="./publicizeResults.html">宣传成果</a>
+                <a href="./researchReport.html">调研报告</a>
+              </div>
+            </div>
+        </header>
+    </div>
+    <div id="publicizeResults" class="container">
+        <div class="result-title">
+            宣传成果
+        </div>
+        <div class="result-container">
+            <div v-for="(item, index) in results" @click="goToUrl(item.url)">
+                <div class="result-item">
+                    <div class="result-item-img">
+                        <img :src="item.img" alt="">
+                    </div>
+                    <div class="result-item-title">
+                        <div class="result-item-title-text">
+                            {{item.title}}
+                        </div>
+                        <div class="result-item-source">
+                            {{item.source}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#publicizeResults',
+            data: {
+                results: []
+            },
+            methods: {
+                goToUrl(url){
+                    window.location.href = url;
+                }
+            },
+            created() {
+                this.results = resultsList;
+            },
+        })
+    </script>
+    
+</body>
+</html>

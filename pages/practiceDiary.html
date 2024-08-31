@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实践日记</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/diary.css">
+    <script src="../js/vue.js"></script>
+    <script src="../js/diary.js"></script>
+    <script src="http://cdn.staticfile.org/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+    <div class="header-navbar">
+        <header>
+            <a href="#" class="brand">
+                <img src="../images/logo.png" alt="">
+            </a>
+            <div class="menu-btn"></div>
+            <div class="navigation">
+              <div class="navigation-items">
+                <a href="../index.html">首页</a>
+                <a href="./publicizeMaterial.html" >宣传材料</a>
+                <a href="./practiceDiary.html" >实践日记</a>
+                <a href="./publicizeResults.html">宣传成果</a>
+                <a href="./researchReport.html">调研报告</a>
+              </div>
+            </div>
+        </header>
+    </div>
+    <div id="practiceDiary" class="container">
+        <div class="diary-title">
+            实践日记
+        </div>
+        <div class="diary-container">
+            <div v-for="(item, index) in diaryList" :key="index" @click="goToDetail(index)">
+                <div class="diary-item">
+                    <div class="diary-item-img">
+                        <img :src="item.img" alt="">
+                    </div>
+                    <div class="diary-item-title">
+                        <div>{{item.title}} {{item.date}}</div>
+                        <div>{{item.author}}</div>
+                    </div>
+                    <div class="diary-item-text">
+                        <div>{{item.text}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#practiceDiary',
+            data: {
+                diaryList: []
+            },
+            methods: {
+                goToDetail(index) {
+                    window.location.href = `./diaryDetail.html?diaryId=${index}`;
+                }
+            },
+            created() {
+                this.diaryList = diaryData;
+            },
+        })
+    </script>
+</body>
+</html>

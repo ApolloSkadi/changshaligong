@@ -1,0 +1,99 @@
+.content {
+  width: 1200px;
+  margin: 0 auto;
+}
+.content .content-wrapper {
+  margin: 20px 0;
+}
+.content .content-wrapper .image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.content .content-wrapper .text-container h2 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #333;
+}
+.content .content-wrapper .text-container .author-date {
+  text-align: right;
+  font-size: 18px;
+  color: #6c757d;
+}
+.content .content-wrapper .text-container p {
+  line-height: 1.6;
+  color: #555;
+  text-indent: 2em;
+  text-align: left;
+}
+.content .content-wrapper .text-container-tyep1 {
+  display: flex;
+  flex-direction: column;
+}
+.content .content-wrapper .text-container-tyep1 .image-container {
+  margin-bottom: 15px;
+}
+.content .content-wrapper .text-container-tyep1 .text-container {
+  text-align: center;
+}
+.content .content-wrapper .text-container-tyep2 {
+  display: flex;
+  justify-content: space-between;
+}
+.content .content-wrapper .text-container-tyep2 .image-container {
+  margin-right: 20px;
+  flex: 1;
+}
+.content .content-wrapper .text-container-tyep2 .text-container {
+  flex: 2;
+}
+.content .content-wrapper .text-container-tyep3 {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
+.content .content-wrapper .text-container-tyep3 .image-container {
+  margin-left: 20px;
+  flex: 1;
+}
+.content .content-wrapper .text-container-tyep3 .text-container {
+  flex: 2;
+}
+.content .content-wrapper .text-container-tyep4 {
+  display: flex;
+  flex-direction: column;
+}
+.content .content-wrapper .text-container-tyep4 .image-container {
+  margin-bottom: 15px;
+}
+.content .content-wrapper .text-container-tyep4 .text-container {
+  text-align: center;
+}
+
+.tab-item {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+  color: #6c757d;
+}
+.tab-item:hover {
+  background-color: #cce5ff;
+  color: #007bff;
+}
+.tab-item.active {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+}
+
+div[v-if="pageDate.length > 1"] {
+  display: flex;
+  align-items: center;
+}
+div[v-if="pageDate.length > 1"] .tab-item:last-child {
+  margin-right: 0;
+}/*# sourceMappingURL=showcasePage.css.map */

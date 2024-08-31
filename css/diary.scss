@@ -1,0 +1,82 @@
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+    .diary-title{
+        text-align: center;
+        font-size: 36px;
+        font-weight: bold;
+        margin-top: 50px;
+    }
+
+    .diary-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; // 卡片之间的间距
+        justify-content: space-between; // 居中排列卡片
+        padding: 20px;
+        &::after {
+            content: ''; // 添加一个空内容作为占位符
+            flex: auto;  // 占据剩余空间
+        }
+      }
+      
+      .diary-item {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 275px; // 卡片宽度
+        display: flex;
+        flex-direction: column;
+        
+        &:hover {
+          transform: translateY(-10px); // 悬浮时向上移动
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // 增强阴影效果
+        }
+      }
+      
+      .diary-item-img {
+        width: 100%;
+        height: 200px; // 图片高度
+        overflow: hidden;
+        border-bottom: 1px solid #ddd;
+      
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; // 保持图片比例不变，裁剪超出部分
+        }
+      }
+      
+      .diary-item-title {
+        padding: 15px;
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+      
+        div:last-child {
+          font-size: 14px;
+          color: #888;
+          margin-top: 5px;
+        }
+      }
+      
+      .diary-item-text {
+        padding: 15px;
+        font-size: 16px;
+        color: #555;
+        flex-grow: 1; // 让文本部分填满剩余空间
+        div {
+            display: -webkit-box;            /* 让子元素使用 flexbox */
+            -webkit-box-orient: vertical;    /* 设置元素的方向为垂直 */
+            overflow: hidden;                /* 隐藏超出容器的内容 */
+            text-overflow: ellipsis;         /* 超出部分显示省略号 */
+            -webkit-line-clamp: 2;           /* 限制显示两行文本 */
+            line-height: 1.5;                /* 设置行高 */
+            max-height: 3em;                 /* 设置最大高度，计算方式为 line-height * 2 */
+            word-break: break-word;          /* 控制单词换行 */
+          }
+      }
+}
