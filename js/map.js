@@ -8535,3 +8535,66 @@ const geoJSONData =  {
         }
     ]
 }
+
+const mapDate = [
+    { 
+        name: '吉首市', // 选块名称
+        value: 100,
+        img: "./images/home/cslgdx.png", // hover 图片展示
+        content: '吉首市是湖南省省会',  // hover 文字提示
+        jumpUrl:'', // 跳转页面地址
+        itemStyle: { 
+            color: '#2ecc71', // 地图选块颜色
+            opacity:0.8  // 地图选块不透明度
+        } 
+    },
+    { 
+        name: '泸溪县', 
+        value: 100,
+        img: "", 
+        content: '泸溪县是湖南省省会' ,
+        itemStyle: { color: '#3498db', opacity:0.8 } 
+    },
+    { 
+        name: '凤凰县', 
+        value: 100,
+        img: "",
+        content: '泸溪县是湖南省省会', 
+        itemStyle: { color: '#9b59b6', opacity:0.8 } 
+    },
+    { 
+        name: '花垣县', 
+        value: 100, 
+        img: "",
+        content: '泸溪县是湖南省省会', 
+        itemStyle: { color: '#34495e', opacity:0.8 } 
+    },
+    { 
+        name: '保靖县', 
+        value: 100, 
+        img: "",
+        content: '泸溪县是湖南省省会', 
+        itemStyle: { color: '#1abc9c', opacity:0.8 } 
+    },
+    { 
+        name: '古丈县', 
+        value: 100, 
+        img: "",
+        content: '泸溪县是湖南省省会', 
+        itemStyle: { color: '#2980b9', opacity:0.8 } 
+    },
+    { 
+        name: '永顺县', 
+        value: 100, 
+        img: "",
+        content: '泸溪县是湖南省省会', 
+        itemStyle: { color: '#95a5a6', opacity:0.8 } 
+    },
+    { 
+        name: '龙山县', 
+        value: 100, 
+        img: "",
+        content: '泸溪县是湖南省省会', 
+        itemStyle: { color: '#f1c40f', opacity:0.8 } 
+    },
+]

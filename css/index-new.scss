@@ -1,0 +1,32 @@
+
+.main-content {
+    position: absolute;
+    z-index: 900;
+    right: 10rem;
+}
+
+#element {
+    margin: auto;
+    transform-style: preserve-3d;
+    transition: all .1s;
+}
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    transform-style: preserve-3d;
+    perspective: 500px;
+    cursor: pointer;
+}
+
+.main-content {
+    .msg-card{
+        .msg-header{
+            width: 300px;
+            margin: 0 auto;
+        }
+        .msg-content{
+            
+        }
+    }
+}
