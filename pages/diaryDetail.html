@@ -34,56 +34,19 @@
             <!-- 顶部导航栏 -->
             <!-- 段落信息 -->
             <div class="content-wrapper">
-                <!-- 上层图片 下层文本 -->
-                <div v-if="randomType == 1" class="text-container-tyep1">
-                    <!-- 图片 -->
-                    <div class="image-container">
-                        <img :src="currentPageDate.img" alt="描述性文本">
-                    </div>
-                    <!-- 文字 -->
-                    <div class="text-container">
-                        <h2>{{currentPageDate.title}}</h2>
-                        <p class="author-date">{{currentPageDate.author}} {{currentPageDate.date}}</p>
-                        <p>{{currentPageDate.text}}</p>
-                    </div>
-                </div>
                 <!-- 左侧图片 右侧文本 -->
-                <div v-if="randomType == 2" class="text-container-tyep2">
+                <div class="text-container-tyep2">
                     <!-- 图片 -->
                     <div class="image-container">
-                        <img :src="currentPageDate.img" alt="描述性文本">
+                        <div v-for="item in currentPageDate.imgs">
+                            <img :src="item" alt="日记图片">
+                        </div>
                     </div>
                     <!-- 文字 -->
                     <div class="text-container">
                         <h2>{{currentPageDate.title}}</h2>
                         <p class="author-date">{{currentPageDate.author}} {{currentPageDate.date}}</p>
                         <p>{{currentPageDate.text}}</p>
-                    </div>
-                </div>
-                <!-- 右侧图片 左侧文本 -->
-                <div v-if="randomType == 3" class="text-container-tyep3">
-                    <!-- 图片 -->
-                    <div class="image-container">
-                        <img :src="currentPageDate.img" alt="描述性文本">
-                    </div>
-                    <!-- 文字 -->
-                    <div class="text-container">
-                        <h2>{{currentPageDate.title}}</h2>
-                        <p class="author-date">{{currentPageDate.author}} {{currentPageDate.date}}</p>
-                        <p>{{currentPageDate.text}}</p>
-                    </div>
-                </div>
-                <!-- 下侧图片 上侧文本 -->
-                <div v-if="randomType == 4" class="text-container-tyep4">
-                    <!-- 文字 -->
-                    <div class="text-container">
-                        <h2>{{currentPageDate.title}}</h2>
-                        <p class="author-date">{{currentPageDate.author}} {{currentPageDate.date}}</p>
-                        <p>{{currentPageDate.text}}</p>
-                    </div>
-                    <!-- 图片 -->
-                    <div class="image-container">
-                        <img :src="currentPageDate.img" alt="描述性文本">
                     </div>
                 </div>
             </div>
@@ -95,7 +58,6 @@
             data:{
                 pageDate:[],
                 currentPageDate:{},
-                randomType:1,
             }, 
             mounted() {
                 
@@ -106,9 +68,6 @@
                 // 选中 对应日记信息
                 this.currentPageDate = diaryData[identifier];
                 console.log('当前页面数据：', this.currentPageDate);
-                // 获取一个1-4的随机数
-                this.randomType = Math.floor(Math.random() * 4) + 1;
-                console.log('随机类型：', this.randomType);
 
             },
             methods: {

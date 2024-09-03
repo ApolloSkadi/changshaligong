@@ -2,6 +2,12 @@
   width: 1200px;
   margin: 0 auto;
 }
+.content .content-title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin-top: 50px;
+}
 .content .content-wrapper {
   margin: 20px 0;
 }
@@ -68,6 +74,14 @@
 }
 .content .content-wrapper .text-container-tyep4 .text-container {
   text-align: center;
+}
+.content .content-wrapper .text-container-tyep6 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.content .content-wrapper .text-container-tyep6 .image-container {
+  margin-bottom: 15px;
 }
 
 .tab-item {
