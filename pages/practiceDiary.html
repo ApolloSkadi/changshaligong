@@ -40,8 +40,11 @@
                         <img :src="item.img" alt="">
                     </div>
                     <div class="diary-item-title">
-                        <div>{{item.title}} {{item.date}}</div>
-                        <div>{{item.author}}</div>
+                        <div>{{item.title}}</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>{{item.author}}</div>
+                            <div>{{item.date}}</div>
+                        </div>
                     </div>
                     <div class="diary-item-text">
                         <div>{{item.text}}</div>
