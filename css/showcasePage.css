@@ -18,7 +18,7 @@
 }
 .content .content-wrapper .text-container h2 {
   margin-bottom: 15px;
-  font-size: 24px;
+  font-size: 28px;
   color: #333;
 }
 .content .content-wrapper .text-container .author-date {
@@ -27,7 +27,8 @@
   color: #6c757d;
 }
 .content .content-wrapper .text-container p {
-  line-height: 1.6;
+  font-size: 20px;
+  line-height: 2.0;
   color: #555;
   text-indent: 2em;
   text-align: left;
